@@ -1,0 +1,123 @@
+# mean, median, mode, variance, and standard deviation
+def sum_data(filename):
+    s = 0
+    with open(filename) as f:
+        for line in f:
+            s = s + float(line)
+    print('Sum of the numbers: {0}'.format(s))
+
+if __name__ == '__main__':
+    sum_data('mydata.txt')
+
+# Mean
+def read_data(filename):
+    numbers = []
+    with open(filename) as f:
+        for line in f:
+            numbers.append(float(line))
+
+    return numbers
+
+def calculate_mean(numbers):
+    s = sum(numbers)
+    N = len(numbers)
+    mean = s / N
+    return mean
+
+if __name__ == '__main__':
+    data = read_data('mydata.txt')
+    mean = calculate_mean(data)
+    print('Mean: {0}'.format(mean))
+
+# median
+def calculate_Median(numbers):
+    N = len(numbers)
+    numbers.sort()
+
+    # Find the median
+    if N % 2 == 0:
+        # if N is even
+        m1 = N / 2
+        m2 = (N / 2) + 1
+        # Convert to integer, match position
+        m1 = int(m1) - 1
+        m2 = int(m2) - 1
+        Median = (numbers[m1] + numbers[m2]) / 2
+    else:
+        m = (N + 1) / 2
+        # Convert to integer, match position
+        m = int(m) - 1
+        Median = numbers[m]
+
+    return Median
+
+if __name__ == '__main__':
+    data = read_data('mydata.txt')
+    Median = calculate_Median(data)
+    print('Median: {0}'.format(Median))
+
+# Mode
+from collections import Counter
+
+def calculate_mode(numbers):
+    c = Counter(numbers)
+    numbers_freq = c.most_common()
+    max_count = numbers_freq[0][1]
+
+    modes = []
+    for num in numbers_freq:
+        if num[1] == max_count:
+            modes.append(num[0])
+    return modes
+
+if __name__ == '__main__':
+    modes = calculate_mode(data)
+    print('The mode(s) of the list of numbers are:')
+    for mode in modes:
+        print(mode)
+
+def read_data(filename):
+    numbers = []
+    with open(filename) as f:
+        for line in f:
+            numbers.append(float(line))
+
+    return numbers
+
+def calculate_mode(numbers):
+    modes = []
+    for num in numbers_freq:
+        if num[1] == max_count:
+            modes.append(num[0])
+    return mode
+
+# ************************************************************************** variance
+
+def calculate_mean(numbers):
+    s = sum(numbers)
+    N = len(numbers)
+    mean = s / N
+    return mean
+
+def find_differences(numbers):
+    mean = calculate_mean(numbers)
+    diff = []
+    for num in numbers:
+        diff.append(num - mean)
+    return diff
+
+def calculate_variance(numbers):
+    diff = find_differences(numbers)
+    squared_diff = []
+    for d in diff:
+        squared_diff.append(d ** 2)
+    sum_squared_diff = sum(squared_diff)
+    variance = sum_squared_diff / len(numbers)
+    return variance
+
+if __name__ == '__main__':
+    data = read_data('mydata.txt')
+    variance = calculate_variance(data)
+    print('The variance of the list of numbers is {0}'.format(variance))
+    std = variance ** 0.5
+    print('The standard deviation of the list of numbers is {0}'.format(std))
